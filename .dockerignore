@@ -13,3 +13,6 @@ node_modules
 test-results
 playwright-report
 fixtures/generated
+docs
+README.md
+.github

@@ -23,6 +23,8 @@ Imports stream through disk-backed multipart uploads and S3 streams; the parser 
 
 The API snapshots source events, mapping versions, prices, provider evidence, configuration, and algorithm version into each run. Financial computation runs only in the worker. Capturing a large input can still take seconds and holds a repeatable-read transaction; splitting source snapshots into content-addressed immutable chunks is a future scaling improvement. Run result evidence currently includes source event IDs; detail preview caps source records at 100.
 
+Source capture uses a bounded lateral lookup against the unique organization/event key for each import reference. This prevents a quadratic nested-loop plan when a newly imported tenant is absent from PostgreSQL's statistics; the ordinary statement timeout is retained.
+
 An outbox row and its resource are committed together. BullMQ uses the outbox UUID as job ID, three attempts, exponential backoff, and resource-level idempotency. Queue names include the database name to isolate local/test environments. Completed imports and runs become no-ops on retries; finding uniqueness is `(run_id, fingerprint)`. Failed operations appear in Settings and can be retried. Redis AOF must be durable; recovering an externally erased queue for already-ENQUEUED outbox rows requires an operator recovery procedure.
 
 Dashboard financial totals aggregate **one result per component from the latest completed run**, avoiding double-counting when a component produces multiple findings or audits are rerun. Totals are grouped by currency. Review counts and exception type charts cover retained finding history, and the UI labels that scope.

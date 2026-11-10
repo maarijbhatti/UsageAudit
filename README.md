@@ -21,6 +21,17 @@ Open [the application](http://localhost:3000), [API health](http://localhost:400
 
 MinIO's upstream community container images are no longer available. Compose builds the pinned official `RELEASE.2025-10-15T17-29-55Z` source release. The first build downloads Go dependencies and takes several minutes. MinIO is used here for local development; use maintained S3-compatible storage for deployment. The local services bind only to loopback: PostgreSQL 5438, Redis 6388, MinIO S3 9008, MinIO console 9009.
 
+### Run the application in Docker
+
+After `pnpm setup`, you can run the API, worker, and production-built web app in containers too:
+
+```bash
+docker compose --env-file .env -f infrastructure/compose.yaml -f infrastructure/compose.app.yaml up -d --build --wait
+docker compose --env-file .env -f infrastructure/compose.yaml -f infrastructure/compose.app.yaml run --rm --no-deps api node dist/apps/api/src/database/seeds/demo.js
+```
+
+The migration service runs before the API starts. Open the same `http://localhost:3000` address. This is a local HTTP setup with development cookie settings; production requires HTTPS and production API configuration. Do not run `pnpm dev` simultaneously because both modes use ports 3000/4000. Stop the application containers with `docker compose --env-file .env -f infrastructure/compose.yaml -f infrastructure/compose.app.yaml stop web worker api`; this preserves the infrastructure and its data.
+
 ### Local demo accounts
 
 Password for all three: `DemoUsageAudit!2026`. Seeding refuses `NODE_ENV=production`.

@@ -11,6 +11,14 @@ test("dashboard tables remain scrollable inside a mobile viewport", async ({
       latestRunId: "layout-run",
       totals: [
         {
+          currency: null,
+          audited_amount: "0",
+          potential_underbilling: "0",
+          potential_overbilling: "0",
+          components: 1,
+          complete_components: 0,
+        },
+        {
           currency: "USD",
           audited_amount: "1840.00",
           potential_underbilling: "160.00",
@@ -46,6 +54,10 @@ test("dashboard tables remain scrollable inside a mobile viewport", async ({
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/dashboard");
   await expect(page.getByText("USD 1,840.00", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Evidence needs configuration" }),
+  ).toBeVisible();
+  await expect(page.locator(".stat-grid")).toHaveCount(1);
   await expect(
     page.getByRole("cell", { name: "2026-10-01T00:00:00Z" }),
   ).toBeVisible();

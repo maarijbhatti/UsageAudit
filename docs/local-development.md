@@ -23,6 +23,8 @@ Demo data is fictional. `valid-usage.csv` includes an Acme event representing 10
 
 ## Deployment
 
+For local application containers, add `-f infrastructure/compose.app.yaml` to the base Compose command as shown in README. The one-shot migration service must succeed before the API starts; the worker and web wait for API health. The web health check exercises the API proxy too. This override deliberately uses development API cookies for local HTTP, with a production-built Next.js server. Production deployments need their own HTTPS configuration.
+
 An example application image is provided in `infrastructure/docker/App.Dockerfile`. Run web, API and worker as separate processes from the same build. Start API with `node dist/apps/api/src/main.js`; worker with `node dist/apps/worker/src/main.js`; web with `node apps/web/node_modules/next/dist/bin/next start apps/web`. Use `NODE_ENV=production`, HTTPS `WEB_ORIGIN`, private `API_ORIGIN`, `HOST=0.0.0.0` for API container networking, managed PostgreSQL/Redis/S3 credentials, and a separately managed encryption key. Never run the demo seed in production.
 
 Run migrations as a separate deployment step under a migration role. Provision runtime roles using the grants template. TLS termination, reverse proxy body limits/timeouts (at least the configured 32 MiB upload limit), durable Redis AOF, PostgreSQL/object-store backups, and secret rotation are deployment concerns. The local Compose file is intentionally not a production orchestrator.

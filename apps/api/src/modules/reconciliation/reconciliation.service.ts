@@ -98,7 +98,15 @@ export class ReconciliationService {
       const events = (
         await rows<{ payload: NormalizedUsageEvent }>(
           db,
-          "SELECT e.payload FROM usage_events e JOIN import_event_refs r ON r.organization_id=e.organization_id AND r.event_id=e.id WHERE r.organization_id=$1 AND r.batch_id=$2 ORDER BY e.source_event_id",
+          // Newly imported tenants may not be in PostgreSQL's statistics yet.
+          // Keep each reference lookup bounded by the unique (organization_id,id)
+          // key instead of allowing two underestimated scans to form a cross product.
+          `SELECT e.payload FROM import_event_refs r
+           JOIN LATERAL (
+             SELECT payload,source_event_id FROM usage_events
+             WHERE organization_id=r.organization_id AND id=r.event_id LIMIT 1
+           ) e ON true
+           WHERE r.organization_id=$1 AND r.batch_id=$2 ORDER BY e.source_event_id`,
           [org, batch.id],
         )
       ).map((r) => r.payload);

@@ -389,32 +389,50 @@ function Dashboard() {
         </Link>
       </div>
       {d.totals.length ? (
-        d.totals.map((t) => (
-          <div className="stat-grid" key={t.currency ?? "unknown"}>
-            <Stat
-              title="Audited billing amount"
-              value={money(t.audited_amount, t.currency ?? "")}
-              note="Comparable invoice usage charges"
-            />
-            <Stat
-              title="Potential underbilling"
-              value={money(t.potential_underbilling, t.currency ?? "")}
-              note="Complete evidence · requires review"
-              accent="amber"
-            />
-            <Stat
-              title="Potential overbilling"
-              value={money(t.potential_overbilling, t.currency ?? "")}
-              note="Complete evidence · requires review"
-              accent="purple"
-            />
-            <Stat
-              title="Audit coverage"
-              value={`${t.complete_components} / ${t.components}`}
-              note="Components with complete evidence"
-            />
-          </div>
-        ))
+        d.totals.map((t) =>
+          t.currency === null ? (
+            <Panel
+              key="unknown-currency"
+              title="Evidence needs configuration"
+              subtitle={`${t.components} billing component(s) have no resolved currency.`}
+            >
+              <div className="panel-body">
+                <p>
+                  Financial totals are unavailable for these components. Review
+                  their mappings and pricing before confirming a discrepancy.
+                </p>
+                <Link className="subtle-link" href="/findings">
+                  Review evidence gaps <ArrowRight size={15} />
+                </Link>
+              </div>
+            </Panel>
+          ) : (
+            <div className="stat-grid" key={t.currency}>
+              <Stat
+                title="Audited billing amount"
+                value={money(t.audited_amount, t.currency ?? "")}
+                note="Comparable invoice usage charges"
+              />
+              <Stat
+                title="Potential underbilling"
+                value={money(t.potential_underbilling, t.currency ?? "")}
+                note="Complete evidence · requires review"
+                accent="amber"
+              />
+              <Stat
+                title="Potential overbilling"
+                value={money(t.potential_overbilling, t.currency ?? "")}
+                note="Complete evidence · requires review"
+                accent="purple"
+              />
+              <Stat
+                title="Audit coverage"
+                value={`${t.complete_components} / ${t.components}`}
+                note="Components with complete evidence"
+              />
+            </div>
+          ),
+        )
       ) : (
         <div className="stat-grid">
           <Stat

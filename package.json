@@ -1,0 +1,45 @@
+{
+  "name": "usageaudit",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=24.14.0 <25"
+  },
+  "scripts": {
+    "dev": "pnpm build:packages && pnpm build:server && concurrently -k -n api,worker,web \"node --env-file=.env dist/apps/api/src/main.js\" \"pnpm dev:worker\" \"pnpm --filter @usageaudit/web dev\"",
+    "dev:api": "pnpm build:server && node --env-file=.env dist/apps/api/src/main.js",
+    "dev:worker": "node --env-file=.env dist/apps/worker/src/main.js",
+    "build:packages": "turbo run build --filter=@usageaudit/billing-core --filter=@usageaudit/provider-adapters --filter=@usageaudit/config",
+    "build:server": "tsc -p tsconfig.server.json && node scripts/link-dist.mjs",
+    "build": "pnpm build:packages && pnpm build:server && pnpm --filter @usageaudit/web build",
+    "typecheck": "pnpm build:packages && tsc -p tsconfig.server.json --noEmit && pnpm --filter @usageaudit/web typecheck",
+    "lint": "eslint apps packages tests scripts",
+    "format": "prettier --write apps packages tests docs scripts *.json *.yaml",
+    "test": "vitest run --config vitest.config.ts",
+    "test:integration": "pnpm build:server && node --env-file=.env --test --test-isolation=none dist/tests/integration/*.test.js",
+    "test:e2e": "playwright test",
+    "test:layout": "node scripts/run-layout.mjs",
+    "db:migrate": "pnpm build:packages && pnpm build:server && node --env-file=.env dist/apps/api/src/database/cli.js migrate",
+    "db:revert": "node --env-file=.env dist/apps/api/src/database/cli.js revert",
+    "db:seed": "node --env-file=.env dist/apps/api/src/database/seeds/demo.js",
+    "setup": "node scripts/setup.mjs",
+    "fixtures:large": "node scripts/generate-fixtures.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0",
+    "@types/node": "26.6.6",
+    "@types/express": "5.0.6",
+    "@types/cookie-parser": "1.4.10",
+    "@types/multer": "2.3.0",
+    "@types/pg": "8.23.1",
+    "typescript": "6.0.3",
+    "turbo": "2.11.10",
+    "concurrently": "10.0.6",
+    "eslint": "10.14.0",
+    "typescript-eslint": "8.72.1",
+    "prettier": "3.9.10",
+    "vitest": "5.1.0",
+    "tsx": "4.23.15"
+  }
+}

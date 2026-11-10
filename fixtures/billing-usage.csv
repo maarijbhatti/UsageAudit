@@ -1,0 +1,6 @@
+providerCustomerId,providerMeterId,periodStart,periodEnd,quantity
+cus_acme,meter_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,92000
+cus_atlas,meter_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,500
+cus_beacon,meter_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,150
+cus_cedar,meter_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,1000
+cus_delta,meter_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,0

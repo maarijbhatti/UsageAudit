@@ -1,0 +1,17 @@
+{
+  "name": "@usageaudit/provider-adapters",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@usageaudit/shared-types": "workspace:*",
+    "stripe": "23.1.0",
+    "decimal.js": "10.6.0",
+    "csv-parse": "7.0.3",
+    "zod": "4.6.7"
+  }
+}

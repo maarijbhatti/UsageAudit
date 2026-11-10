@@ -1,0 +1,15 @@
+node_modules/
+.tools/
+.cache/
+.env
+.env.local
+dist/
+.next/
+.turbo/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+*.log
+.local/
+fixtures/generated/

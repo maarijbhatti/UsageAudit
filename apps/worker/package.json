@@ -1,0 +1,10 @@
+{
+  "name": "@usageaudit/worker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@usageaudit/api": "workspace:*",
+    "bullmq": "5.81.5",
+    "ioredis": "5.11.1"
+  }
+}

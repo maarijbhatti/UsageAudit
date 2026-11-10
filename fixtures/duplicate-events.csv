@@ -1,0 +1,4 @@
+eventId,sourceCustomerId,metricKey,quantity,unit,occurredAt,billable
+evt_acme,acme,requests,100000,request,2026-10-15T00:00:00Z,true
+evt_acme,acme,requests,100000,request,2026-10-15T00:00:00Z,true
+evt_acme,acme,requests,999999,request,2026-10-15T00:00:00Z,true

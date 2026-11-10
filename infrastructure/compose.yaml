@@ -1,0 +1,45 @@
+name: usageaudit
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Run pnpm setup}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run pnpm setup}
+      POSTGRES_DB: ${POSTGRES_DB:-usageaudit}
+    ports: ['127.0.0.1:5438:5432']
+    volumes: ['postgres:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  redis:
+    image: redis:7.4.6-alpine
+    command: ['redis-server', '--appendonly', 'yes', '--maxmemory-policy', 'noeviction']
+    ports: ['127.0.0.1:6388:6379']
+    volumes: ['redis:/data']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  minio:
+    build:
+      context: ./docker
+      dockerfile: Minio.Dockerfile
+    image: usageaudit-minio:2025-10-15
+    command: server /data --console-address ':9001'
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY:?Run pnpm setup}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:?Run pnpm setup}
+    ports: ['127.0.0.1:9008:9000', '127.0.0.1:9009:9001']
+    volumes: ['minio:/data']
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  postgres:
+  redis:
+  minio:

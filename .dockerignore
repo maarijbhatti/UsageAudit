@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+**/node_modules
+**/.next
+**/dist
+.tools
+.cache
+.local
+.turbo
+test-results
+playwright-report
+fixtures/generated

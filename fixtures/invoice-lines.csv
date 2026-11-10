@@ -1,0 +1,7 @@
+id,invoiceId,providerCustomerId,providerPriceId,periodStart,periodEnd,quantity,amountMinorUnits,currency,componentType,invoiceStatus
+il_acme,in_acme,cus_acme,price_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,92000,184000,USD,USAGE,paid
+il_atlas,in_atlas,cus_atlas,price_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,500,1000,USD,USAGE,paid
+il_beacon,in_beacon,cus_beacon,price_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,150,300,USD,USAGE,paid
+il_cedar,in_cedar,cus_cedar,price_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,1000,2500,USD,USAGE,paid
+il_delta,in_delta,cus_delta,price_requests,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,0,0,USD,USAGE,paid
+il_fixed,in_acme,cus_acme,price_fixed,2026-10-01T00:00:00Z,2026-11-01T00:00:00Z,1,9900,USD,FIXED,paid

@@ -1,0 +1,32 @@
+{
+  "name": "@usageaudit/api",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@usageaudit/shared-types": "workspace:*",
+    "@usageaudit/billing-core": "workspace:*",
+    "@usageaudit/provider-adapters": "workspace:*",
+    "@usageaudit/config": "workspace:*",
+    "@nestjs/common": "12.4.0",
+    "@nestjs/core": "12.4.0",
+    "@nestjs/platform-express": "12.4.0",
+    "@nestjs/swagger": "12.1.1",
+    "typeorm": "0.3.31",
+    "pg": "8.23.1",
+    "bullmq": "5.81.5",
+    "ioredis": "5.11.1",
+    "@aws-sdk/client-s3": "3.1163.0",
+    "argon2": "0.45.2",
+    "class-validator": "0.15.1",
+    "class-transformer": "0.5.1",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "cookie-parser": "1.4.7",
+    "helmet": "8.3.0",
+    "pino": "10.4.0",
+    "multer": "2.5.0",
+    "decimal.js": "10.6.0",
+    "zod": "4.6.7",
+    "csv-parse": "7.0.3"
+  }
+}

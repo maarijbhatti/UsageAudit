@@ -1,0 +1,9 @@
+eventId,sourceCustomerId,metricKey,quantity,unit,occurredAt,billable
+evt_acme,acme,requests,100000,request,2026-10-15T00:00:00Z,true
+evt_exact,atlas,requests,500,request,2026-10-15T00:00:00Z,true
+evt_excess,beacon,requests,100,request,2026-10-16T00:00:00Z,true
+evt_price,cedar,requests,1000,request,2026-10-17T00:00:00Z,true
+evt_unmapped,unmapped_co,requests,50,request,2026-10-18T00:00:00Z,true
+evt_no_rate,acme,tokens,2000,token,2026-10-19T00:00:00Z,true
+evt_missing,delta,requests,200,request,2026-10-20T00:00:00Z,true
+evt_acme,acme,requests,100000,request,2026-10-15T00:00:00Z,true

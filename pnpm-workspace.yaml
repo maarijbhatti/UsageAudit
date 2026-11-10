@@ -1,0 +1,24 @@
+packages:
+  - apps/*
+  - packages/*
+overrides:
+  "typeorm>glob": 14.0.2
+  "glob>minimatch": 11.0.1
+allowBuilds:
+  "@scarf/scarf": false
+  msgpackr-extract: true
+  argon2: true
+  esbuild: true
+  sharp: true
+  "@tailwindcss/oxide": true
+  "@nestjs/core": false
+minimumReleaseAgeExclude:
+  - "@aws-sdk/client-s3@3.1163.0"
+  - "@nestjs/common@12.4.0"
+  - "@nestjs/core@12.4.0"
+  - "@nestjs/platform-express@12.4.0"
+  - "@nestjs/swagger@12.1.1"
+  - "@playwright/test@1.65.0"
+  - lucide-react@1.70.0
+  - playwright-core@1.65.0
+  - playwright@1.65.0

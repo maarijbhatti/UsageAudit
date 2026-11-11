@@ -1,6 +1,6 @@
 # Implementation status
 
-Last verification: November 10, 2026. The MVP is implemented and its required automated quality gates **passed in GitHub Actions** on code commit `8818db5`. [Verified CI run](https://github.com/maarijbhatti/UsageAudit/actions/runs/42797683547). Local WSL/Docker has recovered. The expanded integration suite and complete browser workflow now also pass on Windows after fixing audit-input query performance on a reused database. No live Stripe credentials were supplied.
+Last verification: November 11, 2026. The MVP is implemented and its required automated quality gates **passed in GitHub Actions** on code commit `8466ce1`. [Verified CI run](https://github.com/maarijbhatti/UsageAudit/actions/runs/42855776200). Local WSL/Docker has recovered. The expanded integration suite and complete browser workflow now also pass on Windows after fixing audit-input query performance on a reused database. The application proxy health check on November 11 returned API, PostgreSQL and Redis status OK. No live Stripe credentials were supplied.
 
 ## Milestones and important files
 
